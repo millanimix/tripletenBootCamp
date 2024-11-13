@@ -86,3 +86,33 @@ zipcode = 90210
 print(type(zipcode))
 zipcode = str(zipcode)
 print(type(zipcode))
+
+# Error Handling
+
+# SyntaxError
+# print ('Hola'
+
+# Operating error & TypeError
+# print (777 / 0)
+# numbers = 'uno dos tres cuatro' + 5
+# print(numbers)
+
+# NameError
+# apple_price = 1.25
+# banana_price = 0.99
+# print('Precio total:', apple_price + banana_price + kiwi_price)
+
+try:
+    print(777 / 0)
+except:
+    print('¡No podemos dividir entre cero')
+    print('¡Sigamos adelante!')
+
+
+metric = 34
+print('métrica:', metric)
+
+mi_string = 'TripleTen'
+mi_flotante = 123.456
+str(mi_flotante)
+str(mi_string)
