@@ -58,3 +58,12 @@ word = 'bbc'
 word = 'abc'
 
 # Slices
+city = 'Rio de Janeiro, Brasil'
+substring = city[7:14]
+print(substring)
+
+print(city[4:1000])
+print(city[-15:500])
+print(city[4:0])
+
+print(city[16:])
