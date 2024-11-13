@@ -67,3 +67,25 @@ print(city[-15:500])
 print(city[4:0])
 
 print(city[16:])
+
+# Strings formateados
+message = 'Vistoria tiene 23 años y mide 157 cm'
+print(message)
+
+# Mucho trabajo
+name = 'Victoria'
+age = 23
+height = 157
+message = name + ' tiene ' + str(age) + ' años y mide ' + str(height) + ' cm'
+print(message)
+
+# Usando f-strings
+message = f'{name} tiene {age} años y mide {height} cm'
+message = f'{name} tiene {age + 1} años y mide {height} cm'
+print(message)
+
+# Método format()
+message = '{} tiene {} años y mide {} cm'.format(name, age, height)
+print(message)
+message = '{n} tiene {a} años y mide {h} cm'.format(h = height, n = name, a = age)
+print(message)
