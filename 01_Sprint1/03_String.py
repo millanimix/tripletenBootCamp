@@ -35,3 +35,26 @@ print(len(string_2))
 print(len(string_3))
 
 print(len(''))
+
+# Index String
+
+word = 'supercalifragilisticexpialidocious'
+letter = word[5]
+print(letter)
+
+last_letter = word[-1]
+third_from_end = word[-3]
+print(last_letter, third_from_end)
+
+#IndexError
+# word = 'word'
+# print(word[8])
+
+# Strings inmutable dataytpe
+# word = 'bbc'
+# word[0] = 'a'
+
+word = 'bbc'
+word = 'abc'
+
+# Slices
