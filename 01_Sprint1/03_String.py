@@ -89,3 +89,40 @@ message = '{} tiene {} años y mide {} cm'.format(name, age, height)
 print(message)
 message = '{n} tiene {a} años y mide {h} cm'.format(h = height, n = name, a = age)
 print(message)
+
+# String Methods
+message = '¡Hola, me llamo Han Solo!'
+print(message)
+message_new = message.upper()
+print(message_new)
+
+message_new = message.lower()
+print(message_new)
+
+shopping_list = '''aciete de colza
+aceite de girasol
+aceite de aguacate
+aciete de cacahuate'''
+print(shopping_list.replace('aciete','aceite'))
+
+user_ids = '_151234_, _792051_, _955247_'
+user_ids = user_ids.replace('_', '')
+print(user_ids)
+
+column_name = '          fecha de compra    '
+print(column_name)
+print(len(column_name))
+print()
+print(column_name.strip())
+print(len(column_name.strip()))
+
+name = 'Clint Eastwood'
+print(name[:5])
+
+name = 'Clint Eastwood'
+print(name[100:])
+
+city = 'Moscú'
+country = 'Rusia'
+phrase = '{0} es la capital de {1}'.format(city, country)
+print('FIN')
