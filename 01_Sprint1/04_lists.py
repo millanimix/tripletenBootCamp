@@ -79,3 +79,38 @@ my_list = [1, 2, 3, 3, 4]
 my_list.remove(3) # Elimina la primera aparición de un valor específico
 print(my_list)
 
+# Ordering Lists
+years = [1994, 1972, 2008, 1993, 2003, 1994, 1966, 1999, 1962, 1997]
+print(years)
+
+years.sort()
+print(years)
+
+years = [1994, 1972, 2008, 1993, 2003, 1994, 1966, 1999, 1962, 1997]
+years.sort(reverse=True)
+print(years)
+
+movies = ['The Shawshank Redemption', 'The Godfather', 'The Dark Knight', 'Schindler\'s List']
+movies.sort()
+print(movies)
+
+movies = ['The Shawshank Redemption', 'The Godfather', 'the Dark Knight', 'Schindler\'s List']
+movies.sort()
+print(movies)
+
+movies = ['The Shawshank Redemption', 'The Godfather', 'the Dark Knight', 'Schindler\'s List']
+movies.sort(reverse=True)
+print(movies)
+
+years = [1994, 1972, 2008, 1993, 2003, 1994, 1966, 1999, 1962, 1997]
+years_sorted = sorted(years)
+print(years_sorted)
+
+years = [1994, 1972, 2008, 1993, 2003, 1994, 1966, 1999, 1962, 1997]
+years.sort()
+print(years)
+
+years = [1994, 1972, 2008, 1993, 2003, 1994, 1966, 1999, 1962, 1997]
+years_sorted = sorted(years, reverse=True)
+print(years_sorted)
+
