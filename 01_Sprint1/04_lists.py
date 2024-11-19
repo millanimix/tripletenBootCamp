@@ -136,3 +136,16 @@ print(movies_info[-1])
 print(movies_info[0][2])
 print(movies_info[-1][0])
 
+# Strigs Processing
+phrase = 'dividir o no dividir'
+words = phrase.split()
+print(words)
+print(len(words))
+
+phrase = 'Esta-noche-no-se-ven-las-estrellas'
+words = phrase.split('-')
+print(words)
+
+words = ['Mi', 'película', 'favorita', 'es', 'The', 'Graduate.']
+phrase = ' '.join(words)
+print(phrase)
