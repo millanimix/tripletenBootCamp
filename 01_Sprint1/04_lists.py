@@ -24,6 +24,7 @@ c = a + b
 print(c)
 
 print()
+
 # Indices y slices
 movie_info = ['Fight Club', 1999, ['triller', 'drama', 'crime'], 139, 8.644]
 print(movie_info[0])
@@ -40,4 +41,41 @@ print(movie_info[1:])
 print(len(movie_info[1:]))
 
 print(movie_info[:-3])
+
+# Lists Modification
+# Listas son mutables
+
+shawshank_movie = ['The Shawshank Redemption', 'USA', 1994, 'drama', 142, 9.111]
+shawshank_movie.append('Frank Darabont')
+print(shawshank_movie)
+
+godfather_movie = ['The Godfather', 'USA', 1972]
+# agregamos los nombres del director y compositor al final de la lista
+godfather_movie.extend(['Francis Ford Coppola', 'Nino Rota'])
+print(godfather_movie)
+
+# Append agega sólo un elemento al final, el resultado es distinto a extend
+row = [1, 2]
+row.append([3, 4])
+print(row)
+
+dark_knight_movie = ['The Dark Night', 'USA', 'fantasy, action, thriller', 152]
+dark_knight_movie.insert(2, 2008)
+print(dark_knight_movie)
+
+movies = ['Matrix', 'Matrix 2', 'Matrix 3']
+movies.pop()
+print(movies)
+
+movies = ['Matrix', 'Matrix 2', 'Matrix 3']
+movies.pop(1)
+print(movies)
+
+movies = ['Matrix', 'Matrix 2', 'Matrix 3']
+popped_value = movies.pop(1)
+print(popped_value)
+
+my_list = [1, 2, 3, 3, 4]
+my_list.remove(3) # Elimina la primera aparición de un valor específico
+print(my_list)
 
