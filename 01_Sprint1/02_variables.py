@@ -116,3 +116,14 @@ mi_string = 'TripleTen'
 mi_flotante = 123.456
 str(mi_flotante)
 str(mi_string)
+
+# int Lists Operations
+citizen_CA = [-465, 156, -567, -6051, 8607]
+
+total_amount = sum(citizen_CA)
+max_tax_due = min(citizen_CA)
+max_rebate = max(citizen_CA)
+
+print(total_amount)
+print(max_tax_due)
+print(max_rebate)
