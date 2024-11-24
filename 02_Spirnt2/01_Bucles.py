@@ -38,3 +38,23 @@ print(total_duration)
 print(max_duration)
 print(min_duration)
 
+# Bucle for / for loops
+film_genres = ['scifi', 'drama', 'thriller', 'comedy', 'action']
+
+print(film_genres[0])
+print(film_genres[1])
+print(film_genres[2])
+print(film_genres[3])
+print(film_genres[4])
+
+film_genres = ['scifi', 'drama', 'thriller', 'comedy', 'action']
+for value in film_genres:
+    print(value)
+
+film = ['The Shawshank Redemption', 'USA', 1994, 'drama', 142, 9.111]
+for value in film:
+    print(value)
+
+review = 'The Emoji Movie dejó mucho que desear. Dos estrellas demasiado generosas.'
+for symbol in review:
+    print(symbol)
