@@ -103,3 +103,71 @@ for order in orders:
 highest_order_value = max(order_revenue)
 print("Ingresos totales después de descuentos y tasas:", total_revenue) # Salida: Ingresos totales después de descuentos y tasas: 2332.4005
 print("Valor de pedido único más alto:", highest_order_value)  # Salida: Valor de pedido único más alto: 849.966
+
+# Bucle While
+# Con la función randint() se pueden asignar valores aleatorios a variables 
+# función de la librería random. 
+# La función **randint** genera números enteros aleatorios dentro de un rango específico, 
+# por consiguiente declararemos el rango entre 30 y 120 y simularemos el peso de 
+# una persona al azar.
+
+from random import randint # importamos la función randint de la librería random
+
+capacity = 400 # capacidad del ascensor en kg
+total_weight = 0 # variable que almacena el peso total
+
+while total_weight < capacity: # mientras que el peso total es menor que la capacidad máxima
+    person_weight = randint(30, 120) # generamos un número aleatorio entre 30 y 120
+    total_weight += person_weight # el peso generado se agrega al peso total
+    print(f'Entra una persona. Carga del ascensor: {total_weight}')
+
+print('¡Lo sentimos! El ascensor está lleno. Tendrás que esperar al siguiente.')
+
+# Uso de contador
+num_people = 0 # comienza en 0 y no hay nadie dentro
+capacity = 10 # variable que almacena el límite de personas
+
+while num_people < capacity:
+    num_people += 1 # una persona entra
+    print(f'Entra una persona. Carga del asensor: {num_people}')
+
+print('¡Lo sentimos! El asensor está lleno. Tendrá que esperar el siguiente')
+
+
+# ------
+capacity = 400 # capacidad del ascensor en kg
+total_weight = 0 # variable que almacena el peso total
+num_people = 0 # comienza en 0 y no hay nadie dentro
+
+while total_weight < capacity:
+    person_weight = randint(30, 120) # generamos un número aleatorio entre 30 y 120
+    total_weight += person_weight # el peso generado se agrega al peso total
+    num_people += 1 # una persona entra
+    print(f'Entra una persona, Carga del asensor: {total_weight}')
+
+print(f'¡Lo sentimos! El asensor está lleno. Tendrás que esperar el siguiente. \nHay {num_people} personas dentro')
+
+for i in range(10):
+    print(i)
+
+
+numbers = [1, 2, 3, 4, 5]
+
+for i in range(len(numbers)):
+    numbers[i] *= 1
+
+print(numbers)
+
+fact = 1
+
+for i in range(1, 11):
+    fact *= i
+    print(fact)
+
+import math
+     
+x = 10
+     
+# returning the factorial
+print ("The factorial of 5 is : ", end ="")
+print (math.factorial(x))
