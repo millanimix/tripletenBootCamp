@@ -95,3 +95,30 @@ for year in years:
         print('La pelicula se estrenó en la decada de 2000.')
     else:
         print('Tiempo no definido')
+
+# Modificación de tablas
+# Modifying tables
+
+print()
+print('Modifying tables')
+print()
+
+movies = [
+    ["The Shawshank Redemption", 1994, "Frank Darabont"],
+    ["The Godfather", 1972, "Francis Ford Coppola"],
+    ["The Dark Knight", 2008, "Christopher Nolan"],
+    ["12 Angry Men", 1957, "Sidney Lumet"],
+    ["Schindler's List", 1994, "Steven Spielberg"],
+    ["The Lord of the Rings: The Return of the King", 2003, "Peter Jackson"]
+]
+
+movie_name = 'Schindler\'s List'
+correct_year = 1993
+
+for movie in movies:
+    if movie[0] == movie_name:
+        movie[1] = correct_year
+
+for movie in movies:
+    print(movie)
+
