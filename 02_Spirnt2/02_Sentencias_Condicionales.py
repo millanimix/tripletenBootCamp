@@ -1,4 +1,6 @@
 # Expresiones lógicas y operadores de comparación 
+# Logical statements
+# Logical operators: and, or, not
 
 shawshank_release_year = 1994
 titanic_release_year = 1997
