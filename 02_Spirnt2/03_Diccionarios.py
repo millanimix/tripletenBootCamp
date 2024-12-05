@@ -189,3 +189,31 @@ print(f'.keys(): {incomes_per_field.keys()}')
 print(f'.values(): {incomes_per_field.values()}')
 print(f'.items(): {incomes_per_field.items()}')
 
+items = {
+    'Pizza margarita': 3,
+        'Zumo de naranja': 2,
+        'Patatas fritas medianas': 5
+}
+
+item = items.get('Pizza margherita')
+print(item)
+
+books = {
+        'George Orwell': '1984',
+    'Leo Tolstoy': 'Guerra y paz',
+    'Ralph Ellison': 'El hombre invisible',
+    'Antoine de Saint-Exupéry': 'El principito'
+}
+ # Itera sobre la llaves
+for author in books:
+    print(author)
+
+    books = {
+        'George Orwell': '1984',
+    'Leo Tolstoy': 'Guerra y paz',
+    'Ralph Ellison': 'El hombre invisible',
+    'Antoine de Saint-Exupéry': 'El principito'
+}
+
+for author, title in books.items():
+    print(author, title)
