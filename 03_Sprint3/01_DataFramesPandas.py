@@ -14,6 +14,9 @@ data_shape = df.shape
 print(data_shape)
 df.info()
 
+print()
+print('DataFrame with Dictionary')
+print()
 
 data = {'product_id': [101, 102, 103],
         'product_name': ['Laptop', 'Smartphone', 'Tablet'],
@@ -30,6 +33,11 @@ print(data_types)
 print(column_names)
 print(data_shape)
 df.info()
+print(df)
+
+print()
+print('DataFrame with array')
+print()
 
 atlas = [
     ['France', 'Paris'],
