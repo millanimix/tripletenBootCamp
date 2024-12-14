@@ -52,3 +52,16 @@ geography = ['country', 'capital']
 world_map = pd.DataFrame(data=atlas, columns=geography)
 print(world_map)
 
+# Pandas con archivos de excel y csv
+
+print()
+print('Read CSV and Excel files')
+print()
+
+df = pd.read_excel('03_Sprint3/datasets/music.xlsx')
+
+df = pd.read_csv('03_Sprint3/datasets/music.csv')
+df.info()
+print(df.head(3))
+print(df.tail(3))
+
