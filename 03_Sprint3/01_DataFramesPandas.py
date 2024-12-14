@@ -30,3 +30,17 @@ print(data_types)
 print(column_names)
 print(data_shape)
 df.info()
+
+atlas = [
+    ['France', 'Paris'],
+    ['Russia', 'Moscow'],
+    ['China', 'Beijing'],
+    ['Mexico', 'Mexico City'],
+    ['Egypt', 'Cairo']
+]
+
+geography = ['country', 'capital']
+
+world_map = pd.DataFrame(data=atlas, columns=geography)
+print(world_map)
+
