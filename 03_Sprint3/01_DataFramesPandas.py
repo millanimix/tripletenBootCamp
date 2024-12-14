@@ -65,3 +65,6 @@ df.info()
 print(df.head(3))
 print(df.tail(3))
 
+print()
+print('Indexación de un Dataframe')
+print()
