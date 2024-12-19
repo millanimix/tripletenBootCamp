@@ -99,8 +99,29 @@ data = {
 }
 
 df = pd.DataFrame(data)
-
 filtered_data = df.loc[((df.loc[:,'sucursal'] == 'Centro') | (df.loc[:,'sucursal'] == 'Norte')) & (df.loc[:,'precio_unitario'] > 25)]
-
 print(filtered_data)
 
+print()
+print()
+
+df = pd.read_csv('03_Sprint3/datasets/music.csv')
+pop_df = df[df['genre'] == 'pop']
+pop_duration = pop_df['total play']
+print(pop_duration)
+
+mean_duration = pop_duration.mean()
+print(mean_duration)
+
+# Ejemplo mean()
+mean_duration = df[df['genre'] == 'pop']['total play'].mean()
+print(mean_duration)
+
+# Ejemplo count()
+duration_thershold = 180
+long_songs = df[df['total play'] > duration_thershold]['total play'].count()
+print(long_songs)
+
+# Ejemplo sum()
+user_sum_dur = df[df['user_id'] == '174C0ED6']['total play'].sum()
+print(user_sum_dur)
