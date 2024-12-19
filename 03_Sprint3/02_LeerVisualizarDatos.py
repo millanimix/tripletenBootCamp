@@ -46,3 +46,43 @@ print(df.head())
 df_categories = pd.read_excel('03_Sprint3/datasets/product_reviews.xlsx', sheet_name='product_categories')
 df_categories = df_categories.sort_values(by='category', ascending=False)
 print(df_categories)
+
+# Observación de los datos
+print()
+print('Observación de los datos')
+print()
+column_names = [
+    'country',
+    'name',
+    'capacity_mw',
+    'latitude',
+    'longitude',
+    'primary_fuel',
+    'owner'
+]
+data = pd.read_csv(
+    '03_Sprint3/datasets/gpp_modified.csv',
+    sep='|',
+    header=None,
+    names=column_names,
+    decimal=','
+)
+data.info()
+
+column_names = [
+    'country',
+    'name',
+    'capacity_mw',
+    'latitude',
+    'longitude',
+    'primary_fuel',
+    'owner'
+]
+data = pd.read_csv(
+    '03_Sprint3/datasets/gpp_modified.csv',
+    sep='|',
+    header=None,
+    names=column_names,
+    decimal=',',
+)
+print(data.sample(5, random_state=1369))
