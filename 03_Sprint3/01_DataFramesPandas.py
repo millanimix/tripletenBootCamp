@@ -58,7 +58,13 @@ print()
 print('Read CSV and Excel files')
 print()
 
-# df = pd.read_excel('03_Sprint3/datasets/music.xlsx')
+print('Opening excel file')
+df_01 = pd.read_excel('03_Sprint3/datasets/product_reviews.xlsx')
+df_01.describe
+
+df_02 = pd.read_excel('03_Sprint3/datasets/product_reviews.xlsx', sheet_name=['reviews', 'reviewers'])
+print(df_02['reviews'])
+
 
 df = pd.read_csv('03_Sprint3/datasets/music.csv')
 df.info()
