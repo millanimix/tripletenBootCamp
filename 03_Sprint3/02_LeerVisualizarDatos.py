@@ -54,8 +54,8 @@ print()
 column_names = [
     'country',
     'name',
-    'capacity_mw',
     'latitude',
+    'capacity_mw',
     'longitude',
     'primary_fuel',
     'owner'
@@ -86,3 +86,44 @@ data = pd.read_csv(
     decimal=',',
 )
 print(data.sample(5, random_state=1369))
+
+print()
+print('Descripciones numéricas y describe()')
+print()
+
+column_names = [
+    'country',
+    'name',
+    'capacity_mw',
+    'latitude',
+    'longitude',
+    'primary_fuel',
+    'owner'
+]
+data = pd.read_csv(
+    '03_Sprint3/datasets/gpp_modified.csv',
+    sep='|',
+    header=None,
+    names=column_names,
+    decimal=','
+)
+
+print(data.describe())
+print()
+print(data.describe(include='object'))
+print()
+print(data.describe(include='all'))
+print()
+print(data['country'].describe())
+
+print()
+print()
+
+data = pd.read_csv('03_Sprint3/datasets/Driver_Details.csv')
+print(data.sample(5))
+print()
+print(data.describe(include='object'))
+print()
+print(data['nationality'].describe())
+nacionalidad = 'British' 
+n_nacionalidades = 42
