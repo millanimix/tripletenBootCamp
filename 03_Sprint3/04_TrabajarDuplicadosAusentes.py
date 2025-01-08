@@ -40,3 +40,23 @@ print('Comprobando columnas email y source')
 df_emails = df_logs[df_logs['email'].isna()]
 df_emails = df_emails[df_emails['source'].isna()]
 print(df_emails)
+
+# Fill the missing categorical values
+print('Fill the miising categorical values')
+print()
+# Para leer los valores NaN como cadenas vacias
+df_logs = pd.read_csv('03_Sprint3/datasets/visit_log.csv', keep_default_na = False)
+
+print(df_logs.head())
+print()
+df_logs.info()
+
+print()
+print()
+df_logs = pd.read_csv('03_Sprint3/datasets/visit_log.csv', keep_default_na=False)
+df_logs['source'] = df_logs['source'].replace('', 'email')
+
+visits = df_logs.groupby('source')['user_id'].count()
+purchases = df_logs.groupby('source')['purchase'].sum()
+# Tasa de conversión, proporción de visitis en las que se realizó una compra
+print(purchases / visits)
