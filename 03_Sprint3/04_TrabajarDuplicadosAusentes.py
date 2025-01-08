@@ -23,3 +23,20 @@ print(df_logs['email'].value_counts())
 email_values = df_logs['email'].value_counts()
 email_values = email_values.sort_index()
 print(email_values)
+
+# Filtering DataFrames with NaNs
+print()
+print('Printing only NaN rows')
+print(df_logs[df_logs['source'].isna()])
+print('Printing oposite NaN rows')
+print(df_logs[~df_logs['source'].isna()])
+
+print('Filtering a DataFrame')
+email_values = df_logs[~df_logs['email'].isna()]
+only_emails = email_values[email_values['source'] == 'email']
+print(only_emails)
+
+print('Comprobando columnas email y source')
+df_emails = df_logs[df_logs['email'].isna()]
+df_emails = df_emails[df_emails['source'].isna()]
+print(df_emails)
