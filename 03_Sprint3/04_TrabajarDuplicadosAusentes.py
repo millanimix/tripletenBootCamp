@@ -133,3 +133,146 @@ south_avg = south_data['revenue'].mean()
 print(f'Promedio de ingresos en \'South\': {south_avg}')
 south_data.loc[:,'revenue'] = south_data['revenue'].fillna(south_avg)
 print(south_data)
+
+# Duplicate values management
+
+print()
+print('Duplicate values mangement')
+print()
+
+df_stock = pd.read_csv('03_Sprint3/datasets/phone_stock.csv')
+print(df_stock.head(10))
+df_stock.info()
+
+# Revisión: Encontrar duplicados
+
+# Técnica 1: Método dupicate()
+df = pd.DataFrame({'col_1': ['A', 'B', 'A', 'A'], 'col_2': [1, 2, 2, 1]})
+
+print('Así es como se ve el dataset:')
+print(df)
+print('Así es como se ve una serie booleana devuelta:')
+print(df.duplicated())
+print('Así se ve el resultado de duplicated() con sum():')
+print(df.duplicated().sum())
+print('Mostrar duplicados con un filtro')
+print(df[df.duplicated()])
+
+# Técnica 2: Método value_counts()
+
+df = pd.DataFrame({'col_1': ['A', 'B', 'A', 'A'], 'col_2': [1, 2, 2, 1]})
+
+print('Así es como se ve el dataset:')
+print(df)
+print()
+print('Este es el resultado de la llamada al método value_counts() para col_1:')
+print(df['col_1'].value_counts())
+
+# Gestión de duplicados
+
+df = pd.DataFrame({'col_1': ['A', 'B', 'A', 'A'], 'col_2': [1, 2, 2, 1]})
+print('Dataset original:')
+print(df)
+print()
+print('Dataset con duplicados eliminados:')
+print(df.drop_duplicates())
+
+df = pd.DataFrame({'col_1': ['A', 'B', 'A', 'A'], 'col_2': [1, 2, 2, 1]})
+
+print(df)
+print()
+print(df.drop_duplicates(subset='col_1'))
+
+
+stock = pd.read_csv('03_Sprint3/datasets/phone_stock.csv')
+print(stock['item'].value_counts())
+
+df = pd.DataFrame({'col_1': ['A', 'B', 'A', 'A'], 'col_2': [1, 2, 2, 1]})
+
+print('Col_1 original en el dataset:')
+print(df['col_1'])
+print()
+print('Dataset con valores reducidos en col_1')
+print(df['col_1'].str.lower())
+
+# Para reemplazar la columna
+
+df = pd.DataFrame({'col_1': ['A', 'B', 'A', 'A'], 'col_2': [1, 2, 2, 1]})
+df['col_1'] = df['col_1'].str.lower()
+print(df)
+
+# Comprobar total de duplicados
+df = pd.DataFrame({'col_1': ['A', 'B', 'A', 'A'], 'col_2': [1, 2, 2, 1]})
+df['col_1'] = df['col_1'].str.lower()
+print('Total de duplicados')
+print(df['col_1'].duplicated().sum())
+
+# Reemplazar sólo partes de un string
+# Usar replace()
+
+stock = pd.read_csv('03_Sprint3/datasets/phone_stock.csv')
+print(stock.head())
+stock['item'] = stock['item'].str.replace('GB', 'gb')
+print(stock.head())
+
+# Conservar la columna original
+
+stock = pd.read_csv('03_Sprint3/datasets/phone_stock.csv')
+stock['item_modified'] = stock['item'].str.replace('GB', 'gb')
+print(stock.head())
+
+# Ejercicio 2
+print('Ejecicio 2')
+df_stock = pd.read_csv('03_Sprint3/datasets/phone_stock.csv')
+df_stock['item_lowercase'] = df_stock['item'].str.lower()
+print(df_stock.head())
+
+apple = df_stock[df_stock['item_lowercase'].str.contains('apple')].sum()['count']
+samsung = df_stock[df_stock['item_lowercase'].str.contains('samsung')].sum()['count']
+
+print('Número total de teléfonos Apple:', apple)
+print('Número total de teléfonos Samsung:', samsung)
+
+# Ejercicio 3
+print('Ejecicio 3')
+df_stock = pd.read_csv('03_Sprint3/datasets/phone_stock.csv')
+df_stock['item_lowercase'] = df_stock['item'].str.lower()
+print(df_stock.head())
+
+df_stock = df_stock.drop_duplicates(subset='item_lowercase').reset_index(drop=True)
+print(df_stock)
+
+
+# Ejercicio 4
+print('Ejecicio 4')
+df_stock = pd.read_csv('03_Sprint3/datasets/phone_stock.csv')
+df_stock['item_lowercase'] = df_stock['item'].str.lower()
+
+apple = df_stock[df_stock['item_lowercase'] == 'apple iphone xr 64gb']['count'].sum()
+samsung = df_stock[df_stock['item_lowercase'] == 'samsung galaxy a30 32gb']['count'].sum()
+
+df_stock = df_stock.drop_duplicates(subset='item_lowercase').reset_index(drop=True)
+
+df_stock.loc[0, 'count'] = apple
+df_stock.loc[3, 'count'] = samsung
+
+print(df_stock)
+
+# Actividad practica 1
+print()
+print('Practica 1')
+print()
+df = pd.read_csv('03_Sprint3/datasets/steam-200k.csv')
+df.columns = ['user_id', 'game_title', 'behavior_name', 'value']
+print(df.head(10))
+df.info()
+
+print(f'Número de filas duplicadas (Inicial): {df.duplicated().sum()}')
+df_sin_duplicados = df.drop_duplicates().reset_index(drop=True)
+print(f'Número de filas duplicadas (Final): {df_sin_duplicados.duplicated().sum()}')
+print()
+print(df_sin_duplicados['game_title'].value_counts())
+
+df_sin_duplicados.loc[:,'game_title'] = df_sin_duplicados['game_title'].str.lower()
+print()
+print(df_sin_duplicados)
