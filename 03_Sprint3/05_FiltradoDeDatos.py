@@ -201,19 +201,48 @@ datos_ventas = {
     'ventas': [150, 500, 300, 120, 80, 200]
 }
 ventas = pd.DataFrame(datos_ventas)
-
 datos_stock = {
     'producto': ['Laptop', 'Mouse', 'Teclado', 'Monitor', 'Impresora', 'Tablet', 'Cargador'],
     'stock': [50, 200, 150, 75, 30, 100, 60]
 }
 stock = pd.DataFrame(datos_stock)
-
 print("Datos de ventas:\n", ventas)
 print("\nDatos de stock:\n", stock)
-
 productos_más_vendidos = pd.Series(['Mouse', 'Tablet', 'Teclado'])
-
 # ventas_filtradas = ventas.query("producto in @productos_más_vendidos")
 ventas_filtradas = ventas[ventas['producto'].isin(productos_más_vendidos)]
-
 print("\nVentas filtradas (productos más vendidos):\n", ventas_filtradas)
+
+print('\nFiltering with multiple logic conditions')
+df = pd.read_csv('03_Sprint3/datasets/vg_sales.csv')
+print(df)
+df['user_score'] = pd.to_numeric(df['user_score'], errors='coerce')
+print(df)
+# Ver todos los juegos de Wii que no son deportes
+print(df[(df['platform'] == 'Wii') & ~(df['genre'] == 'Sports')].head())
+# Todos los juegos que superaron el millon en al menos una de tres regiones
+print(df[(df['na_sales'] >= 1) | (df['eu_sales'] >= 1) | (df['jp_sales'] >= 1)].head())
+
+print('\nCondiciones múltiples con query()')
+print(df.query("platform == 'Wii' and genre != 'Sports'").head())
+
+print('\nEjercicio 1')
+df_filtered = df.query("year_of_release >= 1980 and year_of_release <= 1989")
+print(df_filtered)
+
+print('\nEjercicio 2')
+q_string = "na_sales >= 1 or eu_sales >= 1 or jp_sales >= 1"
+print(df.query(q_string).head(5)) 
+
+print('\nActividad practica')
+print('Ejercicio 1')
+
+df = pd.read_csv('03_Sprint3/datasets/vg_sales.csv')
+df['user_score'] = pd.to_numeric(df['user_score'], errors='coerce')
+
+developers = ['SquareSoft', 'Enix Corporation', 'Square Enix']
+cols = ['name', 'developer', 'na_sales', 'eu_sales', 'jp_sales']
+
+q_string = "(na_sales > 0 and eu_sales > 0 and jp_sales > 0) and (jp_sales > na_sales + eu_sales) and (developer == @developers)"
+df_filtered = df.query(q_string)[cols]
+print(df_filtered)
