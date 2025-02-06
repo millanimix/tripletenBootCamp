@@ -76,10 +76,12 @@ print('\nFiltrado con strings de consulta y el método query()')
 print(df.query("publisher == 'Nintendo'")[['name', 'publisher']].head())
 
 print('\nFiltrado mediante el método isin()')
+# Tambien se puede pasar el arreglo en vez de la variable @handheld
 handhelds = ['3DS', 'DS', 'GB', 'GBA', 'PSP']
 print(df[~df['platform'].isin(handhelds)][['name', 'platform']])
 print('\nFiltrado con query y parametro in')
-print(df.query("platform in @handhelds")[['name', 'platform']])
+# print(df.query("platform in @handhelds")[['name', 'platform']])
+print(df.query("platform in ['3DS', 'DS', 'GB', 'GBA', 'PSP']")[['name', 'platform']])
 
 print('\nFiltrado ventas de Japón superior a un millón')
 print(df.query("jp_sales > 1.00")[['name', 'jp_sales']])
@@ -246,3 +248,31 @@ cols = ['name', 'developer', 'na_sales', 'eu_sales', 'jp_sales']
 q_string = "(na_sales > 0 and eu_sales > 0 and jp_sales > 0) and (jp_sales > na_sales + eu_sales) and (developer == @developers)"
 df_filtered = df.query(q_string)[cols]
 print(df_filtered)
+
+print('\nReplace values with where()')
+df = pd.read_csv('03_Sprint3/datasets/vg_sales.csv')
+df['platform'] = df['platform'].str.replace('NES', 'Nintendo Entertainment System')
+# Mostrando únicamente las primeras 2 columnas
+print(df.iloc[:, :2].head())
+print()
+df[['na_slaes', 'eu_sales']] = df[['na_sales', 'eu_sales']].where((df['na_sales'] > 0) | (df['eu_sales'] > 0), None)
+print(df[['name', 'na_sales', 'eu_sales']])
+
+rare_publishers = ['Red Flagship', 'Max Five', '989 Sports']
+df['publisher'] = df['publisher'].where(~df['publisher'].isin(rare_publishers), 'other')
+
+print(df[df['publisher'] == 'other'].iloc[:, 1:5])
+
+print('\nEjercicio 1')
+df = pd.read_csv('03_Sprint3/datasets/vg_sales.csv')
+print(df['genre'].value_counts(ascending=True))
+genres = ['Puzzle', 'Strategy']
+df['genre'] = df['genre'].where(~df['genre'].isin(genres), 'Misc')
+print(df['genre'].value_counts(ascending=True))
+
+print('\nActividad Práctica')
+df = pd.read_csv('03_Sprint3/datasets/menu_item.csv')
+print(df['platillo'].value_counts(ascending=True))
+platillos = ['Ensalada', 'Postre']
+df['platillo'] = df['platillo'].where(~df['platillo'].isin(platillos), 'Otros')
+print(df['platillo'].value_counts(ascending=True))
