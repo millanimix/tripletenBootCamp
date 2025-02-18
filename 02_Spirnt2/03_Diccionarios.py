@@ -180,7 +180,7 @@ for client in clients:
         incomes_per_field[area] = [income]
     else:
         incomes_per_field[area].append(income)
-    
+print('Incomes per field')    
 print(incomes_per_field)
 
 print()
