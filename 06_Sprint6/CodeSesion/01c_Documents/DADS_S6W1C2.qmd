@@ -1,0 +1,261 @@
+---
+title: Sprint 6 - Week 1 - Class 2
+subtitle: Tratamiento de datos de juegos - parte 2
+jupyter: python3
+execute: 
+  eval: true
+  error: true
+  warning: true
+  include: true # false para versión del estudiante, true para versión del tutor
+  output: true
+code-line-numbers: true
+format:
+  html:
+    theme: darkly
+    self-contained: true
+    toc: true
+  pdf: 
+    toc: true
+  ipynb: default
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+# Librerías y datos a utilizar
+
+```{python}
+#| include: true
+
+#Importar librerias relevantes
+import pandas as pd
+pd.options.display.max_columns = None
+import numpy as np
+from scipy import stats as st
+
+#Leer archivo de trabajo
+df_games = pd.read_csv("games.csv", sep = ",")
+
+```
+
+# Diagnóstico inicial
+
+## Info, head y conteo de nulos
+
+Obtén: 
+
+- Informacion general
+- Cabecera
+- Conteo de valores perdidos
+
+
+```{python}
+#| include: true
+
+# Informacion general
+df_games.info()
+
+# Cabecera
+df_games.head(10)
+
+# Conteo de valores perdidos
+df_games.isna().sum()
+
+```
+
+# Preparación de datos
+
+## Nombres de columnas
+
+- Poner los nombres de las columnas en minusculas
+
+```{python}
+#| include: true
+
+#Poner los nombres de las columnas en minusculas
+nombres = list(df_games.columns)
+nombres_new = [nombre.lower() for nombre in nombres]
+df_games.columns = nombres_new
+df_games.columns
+```
+
+## Columna names
+
+- Imprime una tabla con nombre del juego y un conteo de veces que se repite ese nombre, ordenado de mayor a menor
+- Poner todos los nombres en minúsculas 
+- Quitar espacios al inicio o al final 
+- Borrar todos los ":"
+- Verifica cómo quedó esa columna luego de las modificaciones
+
+```{python}
+#| include: true
+
+#Visualizar casos
+df_games['name'].value_counts(dropna=False).sort_values(ascending=False)
+
+df_games['name'] = df_games['name'].str.lower().str.strip().str.replace(":","")
+
+df_games['name'].value_counts(dropna=False).sort_values(ascending=False)
+```
+
+## Missing values - columna name
+
+- Identificar los casos perdidos para columna "name"
+- Reemplazar los missing values por algún valor que te parezca razonable (si es que reemplazar te parece razonable)
+
+```{python}
+#| include: true
+
+#Identificar los casos perdidos
+df_games[df_games['name'].isna()]
+
+#Reemplazar datos perdidos
+df_games['name'] = df_games['name'].fillna("not_defined")
+df_games[df_games['name'] == "not_defined"]
+```
+
+## Columna platform_group
+
+- Crear grupos de plataformas y guardalos en una nueva columna llamada platform_group.
+
+```{python}
+#| include: true
+
+#Visualizar casos
+df_games['platform'].value_counts(dropna=False).sort_index(ascending=True)
+
+#Crear grupo de Plataformas
+def GrupoPlat (rating):
+    if rating in ['3DS','DS','GB','GBA','GC','N64','NES','SNES','Wii','WiiU']:
+        return "Nintendo"
+    elif rating in ['PC','PCFX']:
+        return "PC"
+    elif rating in ['PS','PS2','PS3','PS4','PSP','PSV']:
+        return "PlayStation"
+    elif rating in ['X360','XB','XOne']:
+        return "XBox"
+    else:
+        return "Other"
+        
+df_games['platform_group'] = df_games['platform'].apply(GrupoPlat)
+df_games.sample(10)
+
+df_games['platform_group'].value_counts()
+```
+
+## Columna Year of Release
+
+- Visualizar casos
+- Identificar los casos perdidos
+- SIN imputar, extrae estadísticas básicas respecto a esta columna. Hay muchas formas de hacerlo. Para una de ellas, te puede servir usar `.notnull()` dentro de un `query`.
+
+```{python}
+#| include: true
+
+#Visualizar casos
+df_games['year_of_release'].describe()
+
+#Identificar los casos perdidos
+df_games[df_games['year_of_release'].isna()]
+
+df_games.query("year_of_release.notnull()")['year_of_release'].describe()
+```
+
+## E1: Columna genre
+
+- Identificar valores perdidos
+- Imputar valores perdidos
+
+```{python}
+#Identificar valores perdidos
+df_games[df_games['genre'].isna()]
+
+#Imputar valores perdidos
+df_games['genre'] = df_games['genre'].fillna("Not Defined")
+df_games[df_games['genre'] == "Not Defined"]
+```
+
+## E2: Columna user_score
+
+- Cambiar caso de tbd
+- Transformar el tipo de variable
+- Estandarizar para que sea comparable con cricit score
+
+```{python}
+#Cambiar caso de tbd
+df_games.loc[df_games['user_score'] == "tbd",'user_score'] = np.nan
+
+#Transformar el tipo de variable
+df_games['user_score'] = df_games['user_score'].astype(float)
+
+#Estandarizar para que sea comparable con cricit score
+df_games['user_score'] = df_games['user_score']*10
+df_games['user_score'].describe()
+```
+
+## E3: Columna rating
+
+- Crear funcion para traducir cada rating a nombres entendibles (función ya hecha)
+- Crear columna semántica
+
+```{python}
+#| include: true
+
+#Crear funcion
+def Rat_Sem (rating):
+    if rating == "E" or rating == "K-A":
+        return "Everyone"
+    elif rating == "T":
+        return "Teens"
+    elif rating == "M":
+        return "Mature"
+    elif rating == "E10+":
+        return "Everyone 10y+"
+    elif rating == "EC":
+        return "Early Childhood"
+    elif rating == "RP":
+        return "Pending"
+    elif rating == "AO":
+        return "Adults Only"
+    else:
+        return "Pending"
+```
+
+```{python}
+#Crear columna semántica
+df_games['rating_sem'] = df_games['rating'].apply(Rat_Sem)
+df_games.sample(10)
+```
+
+## E4: Columna total_sales
+
+- Calcular total sales
+
+```{python}
+#Calcular total sales
+df_games['total_sales'] = df_games[['na_sales','eu_sales','jp_sales','other_sales']].sum(axis=1) 
+df_games.head(10)
+```
+
+## E5: Tratamiento de duplicados
+
+- Identificar potenciales duplicados
+- Eliminar registros duplicados
+
+```{python}
+#Identificar potenciales duplicados
+df_games[df_games[['name','platform','year_of_release']].duplicated()]
+
+#Eliminar registros duplicados
+df_games = df_games.drop([14244,16230]).reset_index(drop=True)
+df_games.info()
+```
+
+## E6: Guardado de datos limpios
+
+Una vez finalizado este procesamiento de datos, es adecuado que se guarde la tabla resultante en el directorio para no perder los cambios alcanzados hasta este punto.
+
+```{python}
+# Gaurdar tabla procesada
+df_games.to_csv('games_clean.csv', index=False)
+```

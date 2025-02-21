@@ -1,0 +1,180 @@
+---
+title: Creación de funciones de forma progresiva
+subtitle: Generalización poco a poco
+date: today
+jupyter: python3
+execute: 
+  eval: true
+  error: true
+  warning: true
+  include: true # false para versión del estudiante, true para versión del tutor
+  output: true
+code-line-numbers: true
+format:
+  html:
+    theme: darkly
+    self-contained: true
+    toc: true
+  pdf: 
+    toc: true
+  ipynb: default
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+# Contexto
+
+Tenemos datos de películas sacados de IMDB. La última "columna" nos da el score de la película. 
+
+```{python}
+movies_info = [
+    ['Sueños de fuga', 'EE.UU', 1994, 'drama', 142, 9.111],
+    ['El padrino', 'EE.UU', 1972, 'drama, crimen', 175, 8.730],
+    ['Batman: El caballero de la noche', 'EE.UU', 2008,
+        'fantasía, acción, thriller', 152, 8.499],
+    ['La lista de Schindler', 'EE.UU', 1993, 'drama', 195, 8.818],
+    ['El señor de los anillos: el retorno del rey', 'New Zealand',
+        2003, 'fantasía, adventure, drama', 201, 8.625],
+    ['Tiempos violentos', 'EE.UU', 1994, 'thriller, comedia, crimen', 154, 8.619],
+    ['El bueno, el malo y el feo', 'Italia', 1966, 'western', 178, 8.521],
+    ['El club de la pelea', 'EE.UU', 1999, 'thriller, drama, crimen', 139, 9],
+    ['Harakiri', 'Japan', 1962, 'drama, acción, histórico', 133, 8.4],
+    ['Mente indomable', 'EE.UU', 1997, 'drama, romance', 126, 5]
+]
+```
+
+Crea una función que categorice las películas en "buena", "media", y "mala" según su score de IMDB. Haz esto de forma iterativa. No intentes hacer la mejor función a la primera. Avanza poco a poco y prueba si lo que haces funciona o no.
+
+---
+
+# Etapa 1: Crear una función básica
+Primero, puedes comenzar con una función simple que evalúe solo el score de IMDB y devuelva una categoría básica. Este es el esqueleto inicial.
+
+```{python}
+def categorizar_pelicula(pelicula):
+    score = pelicula[5]
+    if score >= 8.5:
+        return 'buena'
+    elif score >= 7:
+        return 'media'
+    else:
+        return 'mala'
+
+# Prueba con una película
+print(categorizar_pelicula(movies_info[0]))  # Debería devolver 'buena'
+```
+**Objetivo**: Los estudiantes entienden cómo extraer el valor necesario de la lista y usar una estructura condicional para categorizarlo.
+
+---
+
+# Etapa 2: Mejorar la función para procesar una lista de películas
+Una vez que creamos una función para categorizar una película, podemos extender la función para trabajar con una lista completa de películas. Así añadimos funcionalidad para procesar varios elementos.
+
+```{python}
+def categorizar_peliculas(lista_peliculas):
+    categorias = []
+    for pelicula in lista_peliculas:
+        score = pelicula[5]
+        if score >= 8.5:
+            categorias.append('buena')
+        elif score >= 7:
+            categorias.append('media')
+        else:
+            categorias.append('mala')
+    return categorias
+
+# Prueba con todas las películas
+print(categorizar_peliculas(movies_info))
+```
+**Objetivo**: Introducir a los estudiantes a bucles para procesar varios elementos de una lista.
+
+---
+
+# Etapa 3: Hacer la función más general (con parámetros personalizables)
+Podemos hacer la función más flexible permitiendo a los usuarios especificar los umbrales de las categorías de forma personalizada.
+
+```{python}
+def categorizar_peliculas(lista_peliculas, umbral_buena=8.5, umbral_media=7):
+    categorias = []
+    for pelicula in lista_peliculas:
+        score = pelicula[5]
+        if score >= umbral_buena:
+            categorias.append('buena')
+        elif score >= umbral_media:
+            categorias.append('media')
+        else:
+            categorias.append('mala')
+    return categorias
+
+# Prueba con diferentes umbrales
+print(categorizar_peliculas(movies_info))
+print(categorizar_peliculas(movies_info, umbral_buena=9, umbral_media=8))
+```
+**Objetivo**: Los estudiantes aprenden a hacer sus funciones más versátiles con el uso de parámetros.
+
+---
+
+# Etapa 4: Añadir nombres de películas al resultado
+Puedes personalizar aún más la función para que no solo devuelva las categorías, sino también los títulos de las películas junto con sus categorías.
+
+```{python}
+def categorizar_peliculas(lista_peliculas, umbral_buena=8.5, umbral_media=7):
+    categorias = {}
+    for pelicula in lista_peliculas:
+        titulo = pelicula[0]
+        score = pelicula[5]
+        if score >= umbral_buena:
+            categorias[titulo] = 'buena'
+        elif score >= umbral_media:
+            categorias[titulo] = 'media'
+        else:
+            categorias[titulo] = 'mala'
+    return categorias
+
+# Prueba con títulos y categorías
+print(categorizar_peliculas(movies_info))
+
+dict_cat_peli = categorizar_peliculas(movies_info)
+
+dict_cat_peli["El señor de los anillos: el retorno del rey"]
+
+```
+**Objetivo**: Mostrar cómo mejorar la legibilidad del resultado al asociar categorías con nombres.
+
+---
+
+# Etapa 5: Agregar la categoría a la lista original
+En esta etapa, modificaremos la función para que añada la categoría de cada película al final de su sublista original.
+
+```{python}
+def agregar_categoria_a_peliculas(lista_peliculas, umbral_buena=8.5, umbral_media=7):
+    for pelicula in lista_peliculas:
+        score = pelicula[5]
+        if score >= umbral_buena:
+            categoria = 'buena'
+        elif score >= umbral_media:
+            categoria = 'media'
+        else:
+            categoria = 'mala'
+        pelicula.append(categoria)  # Añadir la categoría a la sublista
+    return pelicula
+
+# Uso de la función para agregar categorías
+agregar_categoria_a_peliculas(movies_info)
+
+# Mostrar la lista actualizada con las categorías
+for pelicula in movies_info:
+    print(pelicula)
+
+```
+
+# Resumen de etapas
+1. **Etapa 1:** Crear una función básica para categorizar el score de IMDB.
+2. **Etapa 2:** Generalizar la función para que acepte una lista de películas.
+3. **Etapa 3:** Aumentar la flexibilidad de la función, agregándole parámetros.
+4. **Etapa 4:** Mejorar la legibilidad del output.
+5. **Etapa 5:** Modificar la lista original para agregar la categoría como una nueva "columna".
+
+
+

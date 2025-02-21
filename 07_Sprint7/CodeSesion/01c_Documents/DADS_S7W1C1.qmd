@@ -1,0 +1,168 @@
+---
+title: Sprint 7 - Week 1 - Class 1
+subtitle: Bash scripting
+knitr: true # ! Este settings es necesario para poder ejecutar todas las celdas en una misma sesión Shell. knitr requiere tener R instalado con la librería knitr. Con Jupyter no funciona, no ejecuta nada (al menos con las pruebas que hice)
+execute: 
+  eval: true
+  error: true
+  warning: true
+  include: true # false para versión del estudiante, true para versión del tutor
+  output: true
+code-line-numbers: true
+format:
+  html:
+    theme: darkly
+    self-contained: true
+    toc: true
+  pdf: 
+    toc: true
+  ipynb: default
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+# Antes de comenzar
+
+- Instale **git** en su computador si no estaba instalado antes. 
+- Además, es útil tener instalado **Visual Studio Code** (VSCode).
+- Cree una cuenta en **GitHub** siguiendo las instrucciones de la plataforma.
+
+Usaremos terminales de tipo Bash. Si están en Linux o Mac, basta con usar la terminal por defecto. Si están en Windows, usen Git Bash (o WSL si prefieren un sistema operativo Linux dentro de su Windows).
+
+Crea un archivo llamado `DADS_S7W1C1.sh` en dónde irás escribiendo las respuestas de cada ejercicio en orden. Al final del ejercicio, deberías ser capaz de ejecutar ese script de Shell con `sh DADS_S7W1C1.sh` en la terminal y así, ejecutar todos los comandos de inicio a fin, automáticamente.
+
+# Ejercicio 1
+
+1. Abra la consola de comandos y cree una carpeta llamada `proyecto_x`.
+
+```{sh}
+mkdir proyecto_x
+```
+
+2. Defina la carpeta `proyecto_x` como su directorio principal. Esto es automático si usan "Open Folder" en VSCode
+
+```{sh}
+cd proyecto_x
+```
+
+3. Verifique que el `proyecto_x` se encuentra vacío.
+
+```{sh}
+ls -a
+```
+
+4. En el `proyecto_x`, cree un archivo llamado `logs.txt` el cual estará por el momento vacío.
+
+```{sh}
+touch logs.txt
+```
+
+
+5. En el `proyecto_x`, cree dos subdirectorios llamados `scripts` y `textos`, respectivamente.
+
+```{sh}
+mkdir scripts textos
+```
+
+6. Verifique que lo creado en los pasos anteriores se encuentre disponible.
+
+```{sh}
+ls -a 
+```
+
+# Ejercicio 2
+
+1. En el archivo `logs.txt` ingrese el siguiente texto utilizando la consola de comandos:
+
+```md
+ESTE ES UN REGISTRO DE ACTIVIDADES
+==================================
+Autor: [Su nombre]
+Fecha: [Fecha de hoy]
+
+Resultados:
+
+```
+
+```{sh}
+echo "ESTE ES UN REGISTRO DE ACTIVIDADES
+==================================
+Autor: [Su nombre]
+Fecha: [Fecha de hoy]
+
+Resultados:
+" > logs.txt
+```
+
+2. Verifique que el texto se ingreso de forma correcta en el archivo imprimiendo su contenido en la consola.
+
+```{sh}
+cat logs.txt
+```
+
+3. Haga un conteo de los caracteres que contiene este archivo.
+
+```{sh}
+wc -m logs.txt
+```
+
+4. Mueva el archivo `logs.txt` al Subdirectorio textos
+
+```{sh}
+mv logs.txt ./textos
+```
+
+5. En una nueva línea del archivo `logs.txt` ingrese el siguiente texto: "[Hora y minutos actual] Creación de Log". Busca documentación sobre `date +"%H:%M"` y entiende lo que hace. Te podría servir. 
+
+Recuerda siempre usar rutas relativas a tu carpeta del proyecto. Cambiarse constantemente de carpeta no es bueno para la reproducibilidad de tu código. Hazlo solo si es absolutamente necesario.
+
+```{sh}
+date +"%H:%M Creacion de Log" >> textos/logs.txt
+```
+
+1. Vuelva a contar los caracteres que tiene este archivo, solo que esta vez defina un alias llamado `conteo_caracteres` que automáticamente arroje el resultado sin tener que escribir tantos comandos.
+
+
+```{sh}
+alias conteo_caracteres="wc -m"
+```
+
+7. Aplica este alias a `logs.txt`
+
+```{sh}
+conteo_caracteres textos/logs.txt
+```
+
+# Ejercicio 3
+
+1. Ejecuta tu archivo `DADS_S7W1C1.sh` y debugéalo hasta que funcione.
+
+
+```{sh}
+# Ejercicio 1 ---------------------------------------- 
+mkdir proyecto_x
+cd proyecto_x
+ls -a
+touch logs.txt
+mkdir scripts textos
+ls -a 
+
+# Ejercicio 2 ---------------------------------------- 
+echo "ESTE ES UN REGISTRO DE ACTIVIDADES
+==================================
+Autor: [Su nombre]
+Fecha: [Fecha de hoy]
+
+Resultados:
+" > logs.txt
+
+cat logs.txt
+wc -m logs.txt
+mv logs.txt ./textos
+
+date +"%H:%M Creacion de Log" >> textos/logs.txt
+
+alias conteo_caracteres="wc -m"
+conteo_caracteres textos/logs.txt
+```

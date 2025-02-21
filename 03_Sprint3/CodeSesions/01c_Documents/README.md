@@ -1,5 +1,3 @@
-@everyone 
-
 # Webinar 2.2 - Feature Engineering
 
 ## Temario
