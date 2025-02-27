@@ -97,4 +97,41 @@ print('E02\n')
 position.info()
 print('E03\n')
 position['timestamp'] = pd.to_datetime(position['timestamp'], format='%Y-%m-%dT%H:%M:%S')
+print(position.head())  
+
+print('\nAtributos datetime .dt\n')
+df = pd.read_csv('04_Sprint4/datasets/OnlineRetail.csv')
+print(df.head())
+# Convierte 'InvoiceDate' a datetime
+df['InvoiceDate'] = pd.to_datetime(df['InvoiceDate'], format='%Y-%m-%dT%H:%M:%SZ')
+print('\nImprime año del primer InvoiceDate\n')
+print(df['InvoiceDate'][0].year) # devuelve el año del primer Invoice
+
+# No funciona para Series de pandas
+#df['day'] = df['InvoiceDate'].day
+# Usar el obejct accesor .dt
+df_days = df['InvoiceDate'].dt.day
+print(df_days.sample(5, random_state=42))
+
+print('\nTrabajando con usos horarios')
+df['InvoiceDate'] = df['InvoiceDate'].dt.tz_localize('UTC')
+print(df['InvoiceDate'].sample(5, random_state=42))
+
+df['InvoiceDate_NYC'] = df['InvoiceDate'].dt.tz_convert('America/New_York')
+print(df['InvoiceDate_NYC'].sample(5, random_state=42))
+
+print('Ejercicios')
+print('1/3')
+position = pd.read_csv('04_Sprint4/datasets/position.csv')
 print(position.head())
+position['timestamp'] = pd.to_datetime(position['timestamp'], format='%Y-%m-%dT%H:%M:%S')
+dt_months = position['timestamp'].dt.month
+print(dt_months.head(5))
+print('2/3')
+dt_toronto = position['timestamp'].dt.tz_localize('America/Toronto')
+print(dt_toronto.head())
+# print(dt_toronto.describe())
+# dt_toronto.info()
+print('3/3')
+dt_brisbane = dt_toronto.dt.tz_convert('Australia/Brisbane')
+print(dt_brisbane.head(5))
