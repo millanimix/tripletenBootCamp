@@ -135,3 +135,8 @@ print(dt_toronto.head())
 print('3/3')
 dt_brisbane = dt_toronto.dt.tz_convert('Australia/Brisbane')
 print(dt_brisbane.head(5))
+
+# astype()
+# pd.to_numeric and errors parameter
+# pd.to_datetime(date[column], format)
+# dt.tz_localize('CET').dt.tz_convert('EST')
