@@ -73,4 +73,35 @@ print(df.head())
 
 print(df['era_group'].value_counts())
 
+print('Ejercicio')
+print('1/3')
+df = pd.read_csv('04_Sprint4/datasets/vg_sales.csv')
 
+def score_group(score):
+    """
+    Returns the score group of the given score
+    -'low' < 60
+    -'medium' >= 60 score < 79
+    -'high' >= 80
+    -'no score' if score is NaN
+    """
+    if score < 60:
+        return 'low'
+    elif score < 80:
+        return 'medium'
+    elif score >= 80:
+        return 'high'
+    else:
+        return 'no score'
+    
+print(score_group(10))
+print(score_group(65))
+print(score_group(99))
+print(score_group(np.nan))
+
+df['score_categorized'] = df['critic_score'].apply(score_group)
+print(df.head())
+
+df_grouped = df.groupby('score_categorized')
+df_sum = df_grouped['na_sales'].sum()
+print(df_sum)
