@@ -27,3 +27,11 @@ print(df['platform'].unique())
 print()
 df['platform'] = df['platform'].astype('category')
 print(df['platform'].head())
+
+print('Ejercicio')
+df = pd.read_csv('04_Sprint4/datasets/vg_sales.csv')
+# Comprobar cuál es el juego más vendido (en promedio) en todos los mercados
+# df['average_sales'] = df[['na_sales', 'eu_sales', 'jp_sales']].mean(axis=1)
+df['average_sales'] = (df['na_sales'] + df['eu_sales'] + df['jp_sales']) / 3
+df = df.sort_values(by='average_sales', ascending=False)
+print(df.head())
