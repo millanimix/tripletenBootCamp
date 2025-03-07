@@ -105,3 +105,73 @@ print(df.head())
 df_grouped = df.groupby('score_categorized')
 df_sum = df_grouped['na_sales'].sum()
 print(df_sum)
+
+print('\nCreate new categories with row functions')
+df = pd.read_csv('04_Sprint4/datasets/vg_sales.csv')
+df.dropna(inplace=True)
+df.info()
+
+def era_sales_group(row):
+    """
+    Returns the category of the game according the year of release and total sales using the following rules:
+    - 'retro' if year_of_release < 2000 and total_sales < $1 million
+    - 'modern' if 2000 <= year_of_release < 2010 and total_sales < $1 milion
+    - 'recent' if year_of_release >= 2010 and total_sales >= $1 million
+    - 'big hit' if year_of_release >= 2010 and total_sales >= $1 million
+    """
+    year = row['year_of_release']
+    na_sales = row['na_sales']
+    eu_sales = row['eu_sales']
+    jp_sales = row['jp_sales']
+    
+    total_sales = na_sales + eu_sales + jp_sales
+    
+    if year < 2000:
+        if total_sales < 1:
+            return 'retro'
+        else:
+            return 'classic'
+    if year < 2010:
+        if total_sales < 1:
+            return 'modern'
+        else:
+            return 'classic'
+    if year >= 2010:
+        if total_sales < 1:
+            return 'recent'
+        else:
+            return 'big hit'
+        
+row = df.iloc[0]
+print(row)
+print()
+print('This game is', era_sales_group(row))
+
+# Creating your own rows
+column_names = ['year_of_release', 'na_sales', 'eu_sales', 'jp_sales']
+row_values = [2000, 0.1, 0.25, 0]
+row = pd.Series(row_values, index=column_names)
+print(row)
+print()
+print('This game is', era_sales_group(row))
+
+cols = ['year_of_release', 'na_sales', 'eu_sales', 'jp_sales']
+
+row_1 = pd.Series([1989, 0, 0, 0.6], index=cols) # expect 'retro'
+row_2 = pd.Series([1989, 1, 2, 0], index=cols)   # expect 'classic'
+row_3 = pd.Series([2006, 0.3, 0, 0], index=cols) # expect 'modern'
+row_4 = pd.Series([2020, 0, 0.4, 0], index=cols) # expect 'recent'
+row_5 = pd.Series([2020, 1, 1, 1], index=cols)   # expect 'big hit'
+
+print(row_1, row_2, row_3, row_4, row_5, sep='\n\n')
+print()
+
+rows = [row_1, row_2, row_3, row_4, row_5]
+
+for row in rows:
+    print('This game is', era_sales_group(row))
+
+df['game_category'] = df.apply(era_sales_group, axis=1)
+print(df.sample(5, random_state=321))
+
+print(df['game_category'].value_counts())
