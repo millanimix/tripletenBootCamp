@@ -175,3 +175,37 @@ df['game_category'] = df.apply(era_sales_group, axis=1)
 print(df.sample(5, random_state=321))
 
 print(df['game_category'].value_counts())
+
+print('Ejercicios')
+df = pd.read_csv('04_Sprint4/datasets/vg_sales.csv')
+df.dropna(inplace=True)
+
+def avg_score_group(row):
+    critic_score = row['critic_score']
+    user_score = row['user_score']
+    avg_score = (critic_score + user_score * 10) / 2
+
+    if avg_score < 60:
+        return 'low'
+    if avg_score < 80:
+        return 'medium'
+    if avg_score >= 80:
+        return 'high'
+    
+col_names = ['critic_score', 'user_score']
+test_low = pd.Series([10, 1.0], index=col_names)
+test_med = pd.Series([65, 6.5], index=col_names)
+test_high = pd.Series([99, 9.9], index=col_names)
+
+rows = [test_low, test_med, test_high]
+
+for row in rows:
+    print(avg_score_group(row))
+
+row_1 = pd.Series([66, 3.6], index=col_names)
+row_2 = pd.Series([72, 8.1], index=col_names)
+row_3 = pd.Series([99, 9.4], index=col_names)
+
+print(avg_score_group(row_1))
+print(avg_score_group(row_2))
+print(avg_score_group(row_3))
