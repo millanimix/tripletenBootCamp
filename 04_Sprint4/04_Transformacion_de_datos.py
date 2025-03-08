@@ -51,3 +51,37 @@ agg_dict = {'total_sales': 'sum', 'na_sales': 'mean', 'eu_sales': 'mean', 'jp_sa
 genre = grp.agg(agg_dict)
 
 print(genre)
+
+print('Pivot Tables')
+df = pd.read_csv('04_Sprint4/datasets/vg_sales.csv')
+print(df.head())
+
+df = pd.read_csv('04_Sprint4/datasets/vg_sales.csv')
+df.dropna(inplace=True)
+
+pivot_data = df.pivot_table(index='genre',
+                            columns= 'platform',
+                            values='eu_sales',
+                            aggfunc='sum')
+
+print(pivot_data)
+print()
+print(type(pivot_data))
+
+# Groupby example
+df = pd.read_csv('04_Sprint4/datasets/vg_sales.csv')
+df.dropna(inplace=True)
+
+groupby_data = df.groupby(['genre', 'platform'])['eu_sales'].mean()
+print(groupby_data)
+print()
+print(type(groupby_data))
+
+print('Ejercicio')
+df = pd.read_csv('04_Sprint4/datasets/vg_sales.csv')
+df = df[df['year_of_release'] >= 2000]
+
+df_pivot = df.pivot_table(index='genre', columns='year_of_release', values='jp_sales', aggfunc='mean')
+print(df_pivot)
+
+
