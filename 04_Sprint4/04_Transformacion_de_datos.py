@@ -84,4 +84,48 @@ df = df[df['year_of_release'] >= 2000]
 df_pivot = df.pivot_table(index='genre', columns='year_of_release', values='jp_sales', aggfunc='mean')
 print(df_pivot)
 
+# DataFrames combine with concat()
+df = pd.read_csv('04_Sprint4/datasets/vg_sales.csv')
+print(df.head())
 
+# Groupby example
+mean_score = df.groupby('publisher')['critic_score'].mean()
+print(mean_score)
+
+df['total_sales'] = df['na_sales'] + df['eu_sales'] + df['jp_sales']
+num_sales = df.groupby('publisher')['total_sales'].sum()
+print(num_sales)
+
+# Concatenating two DataFrames
+df_concat = pd.concat([mean_score, num_sales], axis='columns')
+print(df_concat)
+
+# Change column names
+df_concat.columns = ['avg_critic_score', 'total_sales']
+print(df_concat)
+
+# Concataning rows
+rpgs = df[df['genre'] == 'Role-Playing']
+platformers = df[df['genre'] == 'Platform']
+
+# Same columns but different rows. 
+print(rpgs.head())
+print(platformers.head())
+
+df_concat = pd.concat([rpgs, platformers])
+print(df_concat[['name', 'genre']])
+
+# Exiercise
+df = pd.read_csv('04_Sprint4/datasets/vg_sales.csv')
+df['total_sales'] = df['na_sales'] + df['eu_sales'] + df['jp_sales']
+
+total_sales = df.groupby('platform')['total_sales'].sum()
+print(total_sales)
+
+print('num_pubs')
+num_pubs = df.groupby('platform')['publisher'].nunique()
+print(num_pubs)
+
+platforms = pd.concat([total_sales, num_pubs], axis=1)
+platforms.columns = ['total_sales', 'num_publishers']
+print(platforms)
