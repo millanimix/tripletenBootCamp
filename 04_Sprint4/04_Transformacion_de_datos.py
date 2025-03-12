@@ -221,4 +221,19 @@ print('\nThe drop method')
 print(both_pupils.drop('author', axis='columns'))
 
 # Exercise
+print('Exercise')
 df_members = pd.read_csv('04_Sprint4/datasets/new_members.csv')
+df_orders = pd.read_csv('04_Sprint4/datasets/recent_orders.csv')
+print(df_members.head())
+print()
+print(df_orders.head())
+
+
+df_merged = df_members.merge(df_orders,
+                             left_on='id',
+                             right_on='user_id',
+                             suffixes=['_member', '_order']
+                             )
+print(df_merged)
+df_merged = df_merged.drop('user_id', axis='columns')
+print(df_merged)
