@@ -129,3 +129,96 @@ print(num_pubs)
 platforms = pd.concat([total_sales, num_pubs], axis=1)
 platforms.columns = ['total_sales', 'num_publishers']
 print(platforms)
+
+# Combining DataFrames with merge()
+first_pupil_df = pd.DataFrame(
+    {
+        'author': ['Alcott', 'Fitzgerald', 'Steinbeck', 'Twain', 'Hemingway'],
+        'title': ['Little Women',
+                  'The Great Gatsby',
+                  'Of Mice and Men',
+                  'The Adventures of Tom Sawyer',
+                  'The Old Man and the Sea'
+                 ],
+    }
+)
+second_pupil_df = pd.DataFrame(
+    {
+        'author': ['Steinbeck', 'Twain', 'Hemingway', 'Salinger', 'Hawthorne'],
+        'title': ['East of Eden',
+                  'The Adventures of Huckleberry Finn',
+                  'For Whom the Bell Tolls',
+                  'The Catcher in the Rye',
+                  'The Scarlett Letter'
+                 ],
+    }
+)
+
+print(first_pupil_df)
+print()
+print(second_pupil_df)
+
+print('Inner merge')
+# Inner merge
+both_pupils = first_pupil_df.merge(second_pupil_df, on='author', how='inner')
+print(both_pupils)
+
+print('Outer merge')
+# Outer merge
+both_pupils = first_pupil_df.merge(second_pupil_df, on='author', how='outer')
+print(both_pupils)
+
+print('Left merge')
+# Left merge
+both_pupils = first_pupil_df.merge(second_pupil_df, on='author', how='left')
+print(both_pupils)
+
+print('Right merge')
+# Right merge
+both_pupils = first_pupil_df.merge(second_pupil_df, on='author', how='right')
+print(both_pupils)
+
+print('Setting Personal sufix')
+both_pupils = first_pupil_df.merge(second_pupil_df,
+                                   on='author',
+                                   suffixes=['_1st_student', '_2nd_student']
+                                   )
+print(both_pupils)
+
+print()
+# The merge column have diffrent names in both dataframes, so we need to rename it
+first_pupil_df = pd.DataFrame(
+    {
+        'authors': ['Alcott', 'Fitzgerald', 'Steinbeck', 'Twain', 'Hemingway'],
+        'title': ['Little Women',
+                  'The Great Gatsby',
+                  'Of Mice and Men',
+                  'The Adventures of Tom Sawyer',
+                  'The Old Man and the Sea'
+                 ],
+    }
+)
+second_pupil_df = pd.DataFrame(
+    {
+        'author': ['Steinbeck', 'Twain', 'Hemingway', 'Salinger', 'Hawthorne'],
+        'title': ['East of Eden',
+                  'The Adventures of Huckleberry Finn',
+                  'For Whom the Bell Tolls',
+                  'The Catcher in the Rye',
+                  'The Scarlett Letter'
+                 ],
+    }
+)
+
+both_pupils = first_pupil_df.merge(second_pupil_df,
+                                   left_on='authors',
+                                   right_on='author'
+                                   )
+print(both_pupils)
+
+# The drop() method
+print('\nThe drop method')
+print(both_pupils.drop('author', axis='columns'))
+
+# Exercise
+df_members = pd.read_csv('04_Sprint4/datasets/new_members.csv')
