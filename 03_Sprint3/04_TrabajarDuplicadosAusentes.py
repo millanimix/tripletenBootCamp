@@ -157,6 +157,7 @@ print('Así se ve el resultado de duplicated() con sum():')
 print(df.duplicated().sum())
 print('Mostrar duplicados con un filtro')
 print(df[df.duplicated()])
+# NOTA: Solo muestra los n-1 duplicados, omite uno de los n, ya que es el original
 
 # Técnica 2: Método value_counts()
 
