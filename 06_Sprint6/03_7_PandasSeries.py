@@ -35,3 +35,28 @@ top20 = tracks.loc[:19]
 
 print(top20)
 
+# Ejemplo: Filtrado de una serie
+total_play = df['total play']
+lower_20 = total_play < 20
+print(lower_20)
+
+# Filtrando el DataFrame original
+df_lower20_only = df[lower_20]
+print(df_lower20_only)
+
+# Filtrando una Serie
+series_lower20_only = total_play[lower_20]
+print(series_lower20_only)
+
+# Filtrando una canción específica
+tracks = df['track']
+track_check = tracks == 'Andrew Paul Woodworth'
+# print(track_check)
+df_track_check = df[track_check]
+print(df_track_check)
+
+# Ejercicio: Filtrar solo las canciones pop
+genre = df['genre']
+pop_genre_check = genre == 'pop'
+pop_df = df[pop_genre_check]
+print(pop_df)
